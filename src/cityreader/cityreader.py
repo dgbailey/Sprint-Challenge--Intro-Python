@@ -1,5 +1,20 @@
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
+import csv
+
+
+
+class City:
+  def __init__(self,name,lat,lon):
+    self.name = name
+    self.lat = lat
+    self.lon = lon
+
+  def __repr__(self):
+        return f"<City: {self.name}, Lat: {self.lat}, Lon: {self.lon}>"
+
+
+    
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -14,20 +29,26 @@
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
-cities = []
 
+cities = []
 def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-    
+  
+    with open('cities.csv') as csvfile:
+      cityreader = csv.DictReader(csvfile)
+      
+      for row in cityreader:
+        cities.append(City(row['city'],row['lat'],row['lng']))
+
     return cities
 
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
 for c in cities:
-    print(c)
+    print(f'{c.name} {c.lat} {c.lon}')
 
 # STRETCH GOAL!
 #
@@ -61,11 +82,33 @@ for c in cities:
 # TODO Get latitude and longitude values from the user
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+  
+  
   # within will hold the cities that fall within the specified region
   within = []
+  if lat1 > lat2:
+    lat2, lat1 = lat1, lat2
+  
+  if lon1 > lon2:
+    lon2, lon1 = lon1, lon2 
+
+
+  for city in cities:
+
+    if (float(city.lat) <= float(lat2) and float(city.lat) >= float(lat1)) and (float(city.lon) <=float(lon2) and float(city.lon) >= float(lon1)):
+      within.append(city)
+      print(f"GEOMATCHED CITIES: {city}")
+
+    
+
+    
 
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
   return within
+
+
+cityreader_stretch(32,-120,45,-100,cities=cities)
+cityreader_stretch(40,-50,12,-120,cities=cities)
