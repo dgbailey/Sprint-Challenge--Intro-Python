@@ -3,10 +3,13 @@ from cityreader import City, cityreader
 
 def check_city(inp, exp):
     if inp.name != exp.name:
+      print(f'ERROR ON NAME inp: {inp.name} expected : {exp.name}')
       return False
     if inp.lat != exp.lat:
+      print(f'ERROR ON LAT inp: {inp.lat} expected : {exp.lat}')
       return False
     if inp.lon != exp.lon:
+      print(f'ERROR ON LON inp: {inp.lon} expected : {exp.lon}')
       return False
     return True
 
@@ -26,7 +29,7 @@ class CityreaderTests(unittest.TestCase):
       City("Albuquerque", 35.1055,-106.6476),
       City("Fort Worth", 32.7813,-97.3466),
       City("McAllen", 26.2203,-98.2457),
-      City("El Paso", 31.8478,-106.431),
+      City("El Paso", 31.8478,-106.4310),
       City("Dallas", 32.7938,-96.7659),
       City("Austin", 30.3038,-97.7545),
       City("Houston", 29.7871,-95.3936),
@@ -43,7 +46,7 @@ class CityreaderTests(unittest.TestCase):
       City("Bronx", 40.8501,-73.8662),
       City("Brooklyn", 40.6501,-73.9496),
       City("Manhattan", 40.7834,-73.9662),
-      City("Philadelphia", 40.0076,-75.134),
+      City("Philadelphia", 40.0076,-75.1340),
       City("Pittsburgh", 40.4396,-79.9763),
       City("Sacramento", 38.5666,-121.4683),
       City("Riverside", 33.9382,-117.3949),
@@ -65,7 +68,7 @@ class CityreaderTests(unittest.TestCase):
       City("Boston", 42.3189,-71.0838),
       City("Cleveland", 41.4766,-81.6805),
       City("Columbus", 39.9859,-82.9852),
-      City("Cincinnati", 39.1412,-84.506),
+      City("Cincinnati", 39.1412,-84.5060),
       City("Salt Lake City", 40.7774,-111.9301),
       City("Saint Louis", 38.6358,-90.2451),
       City("Kansas City", 39.1239,-94.5541),
@@ -73,12 +76,14 @@ class CityreaderTests(unittest.TestCase):
       City("Detroit", 42.3834,-83.1024),
       City("Providence", 41.8229,-71.4186),
       City("Louisville", 38.1662,-85.6488),
-      City("Portland", 45.5372,-122.65)
+      City("Portland", 45.5372,-122.6500)
     ]
     
   def test_cityreader_correctness(self):
     for i in range(len(self.cities)):
+      
       self.assertTrue(check_city(self.cities[i], self.expected[i]))
+      
 
 
 if __name__ == '__main__':
